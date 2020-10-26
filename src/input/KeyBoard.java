@@ -1,28 +1,44 @@
 package input;
+
 import cena.Inicial;
 import cena.Renderer;
+import cena.Jogo;
 import com.jogamp.newt.event.KeyEvent;
 import com.jogamp.newt.event.KeyListener;
 import com.jogamp.newt.event.MouseEvent;
 import com.jogamp.newt.event.MouseListener;
 import com.jogamp.opengl.GL2;
+
 /**
  *
  * @author Siabreu
  */
-public class KeyBoard implements KeyListener, MouseListener{
+public class KeyBoard implements KeyListener, MouseListener {
+
     private Inicial cena_inicial;
-    
-    public KeyBoard(Inicial cena_inicial){
+    private Jogo cena_jogo;
+
+    public KeyBoard(Jogo cena_jogo) {
+        this.cena_jogo = cena_jogo;
+    }
+
+    public KeyBoard(Inicial cena_inicial) {
         this.cena_inicial = cena_inicial;
     }
-    
+
     @Override
-    public void keyPressed(KeyEvent e) {        
+    public void keyPressed(KeyEvent e) {
         System.out.println("Key pressed: " + e.getKeyCode());
-        if(e.getKeyCode() == KeyEvent.VK_ESCAPE)
+        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) 
             System.exit(0);
         
+        //Movimenta o eixo X da nave para a direita
+        if(e.getKeyCode() == KeyEvent.VK_RIGHT)
+            cena_jogo.naveX += 5;     
+        //Movimenta o eixo X da nave para a esquerda
+        if(e.getKeyCode() == KeyEvent.VK_LEFT)
+            cena_jogo.naveX -= 5;
+
 //        switch (e.getKeyChar()) {
 //            case 'r':
 //                cena_inicial.angulo += 45;
@@ -38,47 +54,55 @@ public class KeyBoard implements KeyListener, MouseListener{
     }
 
     @Override
-    public void keyReleased(KeyEvent e) { }
+    public void keyReleased(KeyEvent e) {
+    }
 
     @Override
-    public void mouseClicked(MouseEvent e) {   
+    public void mouseClicked(MouseEvent e) {
         int botao = e.getButton();
 
-        if(botao == MouseEvent.BUTTON1){
+        if (botao == MouseEvent.BUTTON1) {
             System.out.println("Clique ESQ");
             cena_inicial.clicked = true;
             //Pega as coordenados do clique do mouse
-            cena_inicial.mouseX = (float)e.getX();
-            cena_inicial.mouseY = (float)e.getY();	
+            cena_inicial.mouseX = (float) e.getX();
+            cena_inicial.mouseY = (float) e.getY();
 
             //Realiza da conversão das coordenadas da tela para coordenadas da janela
-            cena_inicial.tx = ( (2 * 100 * cena_inicial.mouseX) / cena_inicial.larguraFrame) - 100;
-            cena_inicial.ty = ( ( (2 * 100) * (cena_inicial.mouseY-cena_inicial.alturaFrame) ) / - cena_inicial.alturaFrame) - 100;
-            
+            cena_inicial.tx = ((2 * 100 * cena_inicial.mouseX) / cena_inicial.larguraFrame) - 100;
+            cena_inicial.ty = (((2 * 100) * (cena_inicial.mouseY - cena_inicial.alturaFrame)) / -cena_inicial.alturaFrame) - 100;
+
             System.out.println("tx: " + cena_inicial.tx + ", ty: " + cena_inicial.ty);
         }
         System.out.println("mouse");
     }
 
     @Override
-    public void mouseEntered(MouseEvent e) {  }
+    public void mouseEntered(MouseEvent e) {
+    }
 
     @Override
-    public void mouseExited(MouseEvent e) { }
+    public void mouseExited(MouseEvent e) {
+    }
 
     @Override
-    public void mousePressed(MouseEvent e) {}
+    public void mousePressed(MouseEvent e) {
+    }
 
     @Override
-    public void mouseReleased(MouseEvent e) {}
+    public void mouseReleased(MouseEvent e) {
+    }
 
     @Override
-    public void mouseMoved(MouseEvent e) {}
+    public void mouseMoved(MouseEvent e) {
+    }
 
     @Override
-    public void mouseDragged(MouseEvent e) {}
+    public void mouseDragged(MouseEvent e) {
+    }
 
     @Override
-    public void mouseWheelMoved(MouseEvent e) {}
+    public void mouseWheelMoved(MouseEvent e) {
+    }
 
 }
