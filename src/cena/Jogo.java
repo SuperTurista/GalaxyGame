@@ -19,6 +19,7 @@ public class Jogo implements GLEventListener {
     public boolean liga = true;
     private static GLWindow window = null;
     public float naveX, naveY, naveZ;
+    public float tiroX, tiroY, tiroZ;
 
     public int larguraFrame;
     public int alturaFrame;
@@ -34,6 +35,7 @@ public class Jogo implements GLEventListener {
 
     @Override
     public void display(GLAutoDrawable drawable) {
+        Elementos nave = new Elementos();
         //obtem o contexto Opengl
         gl = drawable.getGL().getGL2();
         glut = new GLUT(); //objeto da biblioteca glut
@@ -50,9 +52,15 @@ public class Jogo implements GLEventListener {
         //Translação que controla o movimento da nave
         gl.glTranslatef(naveX, naveY, naveZ);
         gl.glColor3f(1, 0, 0);
-        //Construtor que chama o metodo que desenha a nave
-        Elementos nave = new Elementos();
+        //Chama o metodo que desenha a nave
         nave.DesenhaNave(gl);
+        gl.glPopMatrix();
+
+        gl.glLoadIdentity();
+        gl.glPushMatrix();
+        gl.glTranslatef(naveX, tiroY - 5, tiroZ);
+        gl.glColor3f(1, 0, 0);
+        nave.DesenhaTiro(gl);
         gl.glPopMatrix();
 
         gl.glFlush();

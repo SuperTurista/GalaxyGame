@@ -29,15 +29,34 @@ public class KeyBoard implements KeyListener, MouseListener {
     @Override
     public void keyPressed(KeyEvent e) {
         System.out.println("Key pressed: " + e.getKeyCode());
-        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) 
+        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
             System.exit(0);
-        
+        }
+
         //Movimenta o eixo X da nave para a direita
-        if(e.getKeyCode() == KeyEvent.VK_RIGHT)
-            cena_jogo.naveX += 5;     
+        if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+            cena_jogo.naveX += 5;
+        }
         //Movimenta o eixo X da nave para a esquerda
-        if(e.getKeyCode() == KeyEvent.VK_LEFT)
+        if (e.getKeyCode() == KeyEvent.VK_LEFT) {
             cena_jogo.naveX -= 5;
+        }
+
+        if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+            //variavel que controla a velocidade do tiro
+            int delay = 50;
+            for (int i = 0; i < 40; i++) {
+                try {
+                    Thread.sleep(delay);
+                } catch (InterruptedException error) {
+                    System.out.println("ERRO");
+                }
+                //a cada repetição a bala movimenta 5 positivo, ou seja, anda 5 casas pra cima
+                cena_jogo.tiroY += 5;
+            }
+            //ao final da execução ela reseta ao ponto de inicio
+            cena_jogo.tiroY = 0;
+        }
 
 //        switch (e.getKeyChar()) {
 //            case 'r':
